@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% load comments %}
+{% block page-content %}
+    <h3>{{ bbs.title }}</h3>
+    <div>
+        {{ bbs.content|safe }}
+
+        {% render_comment_list for bbs %}
+    </div>
+{% endblock page-content %}

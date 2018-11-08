@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block page-content %}
+    {% for bbs in bbs_list %}
+        <a href="{% url 'bbs:bbs_detail' bbs.id %}">{{ bbs.title }}</a>
+        <br>
+        {{ bbs.summary }}
+        <hr>
+    {% empty %}
+        Nothing
+    {% endfor %}
+{% endblock page-content %}
