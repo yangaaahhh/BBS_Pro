@@ -4,7 +4,29 @@
     <h3>{{ bbs.title }}</h3>
     <div>
         {{ bbs.content|safe }}
-
+        <hr>
+        <div class="comment">
+            {% get_comment_count for bbs as comment_count %}
+            <span class="glyphicon glyphicon-comment">
+            </span> {{ comment_count }}
+        </div>
+        <br>
+        {% get_comment_form for bbs as form %}
+        <form action="{% url 'bbs:bbs_detail' bbs.id %}" method="PSOT">
+            {% csrf_token %}
+            <textarea cols=80 rows=3 name="comment_content"></textarea>
+            <input type="hidden" name="bbs" value="{{ bbs.id }}"/>
+            <input type="submit" value="评论" />
+        </form>
+        <!--
         {% render_comment_list for bbs %}
+        !-->
+        {% get_comment_list for bbs as comment_list %}
+        {% for comment in comment_list reversed %}
+            {{ comment.submit_date }}
+            <br>
+            {{ comment.comment }}
+            <hr>
+        {% endfor %}
     </div>
 {% endblock page-content %}

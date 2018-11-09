@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.shortcuts import reverse
 
 
 # Create your models here.
@@ -15,6 +16,9 @@ class BBS(models.Model):  # 文章
 
     def __str__(self):
         return self.title
+
+    def get_absolute_url(self):
+        return reverse('bbs:bbs_detail', kwargs={'bbs_id': self.id})
 
 
 class Category(models.Model):  # 板块
