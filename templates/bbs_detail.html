@@ -12,10 +12,14 @@
         </div>
         <br>
         {% get_comment_form for bbs as form %}
-        <form action="{% url 'bbs:bbs_detail' bbs.id %}" method="PSOT">
+        <form action="{% url 'bbs:sub_comment' %}" method="POST">
             {% csrf_token %}
-            <textarea cols=80 rows=3 name="comment_content"></textarea>
-            <input type="hidden" name="bbs" value="{{ bbs.id }}"/>
+            {% if user.is_authenticated %}
+                <textarea cols=80 rows=3 name="comment_content" placeholder=""></textarea>
+            {% else %}
+                <textarea cols=80 rows=3 name="comment_content" placeholder="请先登录" readonly="true"  required="true"></textarea>
+            {% endif %}
+            <input type="hidden" name="bbs_id" value="{{ bbs.id }}"/>
             <input type="submit" value="评论" />
         </form>
         <!--

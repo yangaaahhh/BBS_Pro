@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block page-content %}
+<div>
+    <form action="{% url 'bbs:acc_login' %}" method="POST">
+        {% csrf_token %}
+        <input type="text" name="username" /><br>
+        <input type="password" name="password" /><br>
+        <span style="color:red">{{ login_err }}</span><br>
+        <input type="submit" value="Login" />
+    </form>
+</div>
+{% endblock page-content %}
