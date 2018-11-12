@@ -36,7 +36,18 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="{% url 'bbs:index' %}">全部</a></li>
+              {% ifequal category_id None %}
+                <li class="active"><a href="{% url 'bbs:index' %}">全部</a></li>
+              {% else %}
+                <li><a href="{% url 'bbs:index' %}">全部</a></li>
+              {% endifequal %}
+              {% for category in category_list %}
+                {% ifequal category.id category_id %}
+                    <li class="active"><a href="{% url 'bbs:bbs_category' category.id %}">{{ category }}</a> </li>
+                {% else %}
+                    <li><a href="{% url 'bbs:bbs_category' category.id %}">{{ category }}</a> </li>
+                {% endifequal %}
+              {% endfor %}
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <li class="dropdown">
@@ -48,7 +59,7 @@
                 {% endif %}
                 <span class="caret"></span></a>
               <ul class="dropdown-menu">
-                <li><a href="#">Action</a></li>
+                <li><a href="{% url 'bbs:bbs_pub' %}">发帖</a></li>
                 <li><a href="{% url 'bbs:logout' %}">退出登录</a></li>
               </ul>
              </li>
